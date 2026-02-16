@@ -1,0 +1,7 @@
+[servers]
+194.107.115.250 ansible_user=root ansible_ssh_pass=P@@$$word123 ansible_become_pass=P@@$$word123
+194.107.115.251 ansible_user=root ansible_ssh_pass=P@@$$word123 ansible_become_pass=P@@$$word123
+
+[servers:vars]
+ansible_connection=ssh
+ansible_port=22

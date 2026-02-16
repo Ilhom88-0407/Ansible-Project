@@ -1,0 +1,52 @@
+---
+- name: install appache and uploud mu home page
+  hosts: all
+  become: yes
+  vars:
+    -source_file: ./mywebserver/index.html
+    -destination_file: /var/www/html
+  tasks:                ## бажарилиш керак бўлган задачалар
+    - name: check and print linux version
+      debug: var=ansible_os_family          ## бу ерда linux versionni chiqaradi
+
+    - block:    # =======Block for RedHat    Bloklar ansible ni ran qilganda ma'lumotni Task sifatida chaqirib beradi
+      - name: install appache
+        yum:
+          name: httpd 
+          state: lastest
+        when: ansible_os_family == "RedHat"
+
+      - name: copy my web page
+        copy:
+          src: "{{ source_file }}"
+          dest: "{{ destination_file }}"
+          mode: 0555
+          notify:
+            - restart appache
+
+      - name: Start web server for RedHat
+        service: name= httpd state=started enable=yes
+      when: ansible_os_family == "RedHat"    # when ni blokni tagiga olib tushib qo'yildi shunda ikkala komanda uchun 1 ta when bo'ladi
+    - block:    # =======Block for Debian ==============#             
+      - name: Install appache web server on ubuntu 
+        apt:
+          name: apache2
+          state: lastest
+      
+      - name: Start web server for Debiban
+        service: 
+         name: apache2 
+         state: started 
+         enable: yes
+      when: ansible_os_family == "Debian"
+  
+  handlers:             ## текширув
+    - name: restart appache
+      service:
+        name: httpd
+        state: restarted
+        
+    - name: restart apache2 Debian
+      service: name=apache2 state=restarted
+
+---

@@ -1,0 +1,32 @@
+---
+- name: Loops Playbook
+  hosts: linux3
+  become: yes
+
+  tasks:
+  - name: Say Hello to all
+    debug: msg="Hello {{ item }} "
+    loop:
+      - "Vasya"
+      - "Petya"
+      - "Ivan"
+
+  - name: Install Untill explorer
+    shell: echo  -n Z >> file.txt && cat myfile.txt
+    registers: outpoot
+    deley: 2
+    retraies: 10
+    until: outpoot.stdout.find("ZZZZ") == false
+
+  - name: Print Final Output
+    debug: 
+      var: outpoot.stdout
+  
+  - name: Install packages      # bir nechta paketni o'rnatish uchun loop ishlatamiz
+    apt:
+      name: "{{ item }}"
+      state: installed
+    loop:
+      - "htop"
+      - "curl"
+      - "wget"

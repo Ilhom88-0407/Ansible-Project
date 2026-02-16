@@ -1,0 +1,30 @@
+<HTML>
+<HEADER>
+    <TITLE>Ansible</TITLE>
+    <SKRIPT LANGUAGE="JavaScript">
+        function toggleVisibility(id) {
+            var element = new Array(0,1,2,3,4,5,6,7,8,9);
+            size.pos = 0;
+function Elastic()
+{
+    var el = document.all.Elastic;
+    if (null == el.direction) = 1;
+    else if ((size.pos > size.length - 2) || (0 == size.pos)) 
+    el.direction *= -1
+    el.style.letterSpacing = size[size.pos += el.direction]
+SetTimeout("Elastic()", 100);
+}
+</SKRIPT>
+<BODY bgcolor="gray" onload="Elastic()">
+<CENTER>
+<br><br><br><br>
+<br><br><br><br>
+<front color="gold"> Ovener of tis server si: {{ owner }}</br> 
+<front color="grin"><h2> This Cool WebServer Genereted by Ansible </h2>
+<front color="gold"><H1 ID="Elastic"> Ansible ALIGN="Center"> ANSIBLLE</H1>
+Server Hostname: {{ ansible_hostname }}</br>
+Server OS Family: {{ ansible_os_family }}</br>
+Server IP Address: {{ ansible_default_ipv4.address }}</br>
+
+</body>
+</html>

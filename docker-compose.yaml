@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ansible:
+    build: .
+    container_name: ansible-control
+    volumes:
+      - D:/project AI/Ansible:/ansible
+    working_dir: /ansible
+    environment:
+      - ANSIBLE_CONFIG=/ansible/ansible.cfg
+      - ANSIBLE_HOST_KEY_CHECKING=False
+    stdin_open: true
+    tty: true
+    networks:
+      - ansible-net
+
+networks:
+  ansible-net:
+    driver: bridge
